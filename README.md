@@ -1,2 +1,2 @@
 # quotzz
-See Quotes from https://opinionated-quotes-api.gigalixirapp.com/v1/quotes
+See Quotes from reliable endpoints
