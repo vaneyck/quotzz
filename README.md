@@ -1,2 +1,2 @@
 # quotzz
-See Quotes from reliable endpoints
+Get access to the latest news
