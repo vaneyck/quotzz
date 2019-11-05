@@ -46,7 +46,7 @@ class FullscreenActivity : AppCompatActivity() {
         })
 
         // Setting recycler view after data is loaded
-        val adapter = ArticleAdapter()
+        val adapter = ArticleAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
 
