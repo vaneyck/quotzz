@@ -28,25 +28,25 @@ class News {
     }
 }
 
-class QuoteJson {
+class ArticleJson {
     val articles: ArrayList<News> = ArrayList<News>()
 }
 
 class QuoteViewModel : ViewModel() {
-    var quotes: LiveData<QuoteJson> = QuoteRepository().data
+    var articles: LiveData<ArticleJson> = ArticleRepository().data
 }
 
 interface Webservice {
     @GET("https://newsapi.org/v2/everything?apiKey=37bd379b7c7e4280ad84f7e8d176e870")
-    fun getQuotes(@Query("q") searchQuery: String): Call<QuoteJson>
+    fun getQuotes(@Query("q") searchQuery: String): Call<ArticleJson>
 }
 
-class QuoteRepository {
-    var data = MutableLiveData<QuoteJson>()
+class ArticleRepository {
+    var data = MutableLiveData<ArticleJson>()
 
-    fun pullArticles(searchQuery: String): LiveData<QuoteJson> {
+    fun pullArticles(searchQuery: String): LiveData<ArticleJson> {
         // Set default values
-        val d = QuoteJson()
+        val d = ArticleJson()
         var a = News()
         a.author = "Searching"
         a.source["name"] = "Internet"
@@ -56,22 +56,22 @@ class QuoteRepository {
         data.value = d
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://quotes.rest")
+            .baseUrl("https://articles.rest")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val webservice: Webservice = retrofit.create(Webservice::class.java)
 
-        webservice.getQuotes(searchQuery).enqueue(object : Callback<QuoteJson> {
-            override fun onResponse(call: Call<QuoteJson>, response: Response<QuoteJson>) {
+        webservice.getQuotes(searchQuery).enqueue(object : Callback<ArticleJson> {
+            override fun onResponse(call: Call<ArticleJson>, response: Response<ArticleJson>) {
                 if (response.body() != null) {
                     data.value = response.body()
                 }
             }
 
             // Error case is left out for brevity.
-            override fun onFailure(call: Call<QuoteJson>, t: Throwable) {
-                Log.e("QuoteRepository", t.toString())
+            override fun onFailure(call: Call<ArticleJson>, t: Throwable) {
+                Log.e("ArticleRepository", t.toString())
             }
         })
         return data

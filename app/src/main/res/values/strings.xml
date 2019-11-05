@@ -4,4 +4,5 @@
     <string name="dummy_content">This will be a quote from a maybe famous person</string>
     <string name="hint_text">Search</string>
     <string name="search_label">Go</string>
+    <string name="read_label">Read</string>
 </resources>
