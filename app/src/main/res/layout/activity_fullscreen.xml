@@ -73,6 +73,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_label" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2sp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Powered by NewsAPI.org"/>
             </LinearLayout>
 
 
