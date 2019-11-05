@@ -50,8 +50,9 @@ class ArticleRepository {
         var a = News()
         a.author = "Searching"
         a.source["name"] = "Internet"
-        a.title = "Pulling articles..."
-        a.urlToImage = "https://giphygifs.s3.amazonaws.com/media/RHBAyK1GxTgPe/giphy.gif"
+        a.title = "Retrieving articles..."
+        a.url = "https://google.com"
+        a.urlToImage = "https://i.ytimg.com/vi/bhuKGm7CGHk/maxresdefault.jpg"
         d.articles.add(a)
         data.value = d
 

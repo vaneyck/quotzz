@@ -25,7 +25,12 @@ class ArticleAdapter(val context: Context) : RecyclerView.Adapter<ArticleViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<SingleArticleBinding>(inflater, com.vanks.quotzz.R.layout.single_article, parent, false)
+        val binding = DataBindingUtil.inflate<SingleArticleBinding>(
+            inflater,
+            com.vanks.quotzz.R.layout.single_article,
+            parent,
+            false
+        )
         return ArticleViewHolder(binding)
     }
 
@@ -44,4 +49,5 @@ class ArticleAdapter(val context: Context) : RecyclerView.Adapter<ArticleViewHol
 
 }
 
-class ArticleViewHolder(val binding: SingleArticleBinding) : RecyclerView.ViewHolder(binding.getRoot())
+class ArticleViewHolder(val binding: SingleArticleBinding) :
+    RecyclerView.ViewHolder(binding.getRoot())
