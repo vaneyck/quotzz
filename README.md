@@ -1,2 +1,4 @@
 # quotzz
-Get access to the latest news
+Search and view curated articles from https://newsapi.org/
+
+![logo](/quotzz.jpg)
