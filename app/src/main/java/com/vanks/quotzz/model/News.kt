@@ -1,5 +1,6 @@
 package com.vanks.quotzz.model
 
+import androidx.annotation.MainThread
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,8 +16,8 @@ class News {
     var publishedAt: String = ""
     var source: HashMap<String, String> = HashMap<String, String>()
 
-    fun getOrigin() : String {
-        if(this.author != null) {
+    fun getOrigin(): String {
+        if (this.author != null) {
             return this.author + " @ " + this.source["name"].toString()
         } else {
             return this.source["name"].toString()

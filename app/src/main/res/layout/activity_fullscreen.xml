@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,7 +15,7 @@
 
         <variable
             name="searchTerm"
-            type="String" />
+            type="com.vanks.quotzz.viewmodel.SearchTerm" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,12 +32,12 @@
             android:keepScreenOn="true"
             android:padding="20sp"
             android:paddingTop="30sp"
-            android:text="@{searchTerm}"
+            android:text="@{searchTerm.text}"
             android:textColor="@color/colorAccent"
             android:textSize="35sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -45,23 +45,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:articleData="@{articles}"
-            app:layout_constraintTop_toBottomOf="@id/searchLabel"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchLabel" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="#ffffff"
+            android:elevation="20dp"
             android:orientation="vertical"
-            android:paddingTop="10sp"
             android:paddingLeft="25sp"
+            android:paddingTop="10sp"
             android:paddingRight="25sp"
             android:paddingBottom="25sp"
-            android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            >
+            app:layout_constraintLeft_toLeftOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/labelsRecyclerView"

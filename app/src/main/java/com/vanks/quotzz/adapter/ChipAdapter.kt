@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.MutableLiveData
 import com.vanks.quotzz.databinding.SingleLabelBinding
 import com.vanks.quotzz.model.*
 import com.vanks.quotzz.viewmodel.MainActivityViewModel
-import com.vanks.quotzz.viewmodel.convertStringToLiveData
 
-
-class ChipAdapter(val context: Context, val articleRepository: ArticleRepository, val viewModel: MainActivityViewModel) : RecyclerView.Adapter<ChipViewHolder>() {
+class ChipAdapter(
+    val context: Context,
+    val articleRepository: ArticleRepository,
+    val viewModel: MainActivityViewModel
+) : RecyclerView.Adapter<ChipViewHolder>() {
 
     var labels: ArrayList<Label> = ArrayList()
 
@@ -38,10 +39,16 @@ class ChipAdapter(val context: Context, val articleRepository: ArticleRepository
 
     override fun onBindViewHolder(holder: ChipViewHolder, position: Int) {
         holder.binding.label = labels[position]
-        holder.binding.labelButton.setOnClickListener(object: View.OnClickListener {
+        holder.binding.labelButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                viewModel.searchTerm = convertStringToLiveData(labels[position].name)
-                viewModel.articles = articleRepository.pullArticles(ArticleQuery(ArticleQueryType.CATEGORY, "", position))
+                viewModel.searchTerm = articleRepository.generateSearchTerm(labels[position])
+                viewModel.articles = articleRepository.pullArticles(
+                    ArticleQuery(
+                        ArticleQueryType.CATEGORY,
+                        "",
+                        position
+                    )
+                )
             }
         })
     }

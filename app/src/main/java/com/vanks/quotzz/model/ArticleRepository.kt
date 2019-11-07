@@ -5,12 +5,24 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import retrofit2.*
-import android.os.Build
-import android.telephony.TelephonyManager
+import com.vanks.quotzz.util.getDeviceCountryCode
+import com.vanks.quotzz.viewmodel.SearchTerm
 
 class ArticleRepository(val context: Context) {
     val TAG = "ArticleRepository"
+
     var data = MutableLiveData<ArticleJson>()
+    var searchConfig = MutableLiveData<SearchTerm>()
+
+    fun generateSearchTerm(term : String): LiveData<SearchTerm> {
+        searchConfig.value = SearchTerm(term, null)
+        return searchConfig
+    }
+
+    fun generateSearchTerm(label : Label) : LiveData<SearchTerm> {
+        searchConfig.value = SearchTerm(null, label)
+        return searchConfig
+    }
 
     fun pullArticles(articleQuery: ArticleQuery): LiveData<ArticleJson> {
         // Set default values
@@ -61,40 +73,11 @@ class ArticleRepository(val context: Context) {
         }
     }
 
-    private fun getDeviceCountryCode(context: Context): String {
-        var countryCode: String?
-
-        // try to get country code from TelephonyManager service
-        val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        if (tm != null) {
-            // query first getSimCountryIso()
-            countryCode = tm.simCountryIso
-            if (countryCode != null && countryCode.length == 2)
-                return countryCode.toLowerCase()
-
-            if (countryCode == null) {
-                // for 3G devices (with SIM) query getNetworkCountryIso()
-                countryCode = tm.networkCountryIso
-            }
-            if (countryCode != null && countryCode.length == 2)
-                return countryCode.toLowerCase()
-        }
-
-        // if network country not available (tablets maybe), get country code from Locale class
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            countryCode = context.resources.configuration.locales.get(0).country
-        } else {
-            countryCode = context.resources.configuration.locale.country
-        }
-
-        return if (countryCode != null && countryCode.length == 2) countryCode.toLowerCase() else "us"
-    }
-
     private fun getSearchingContent(): ArticleJson {
         val d = ArticleJson()
         var a = News()
-        a.author = "Searching"
-        a.source["name"] = "Internet"
+        a.author = null
+        a.source["name"] = ""
         a.title = "Retrieving articles..."
         a.url = null
         a.urlToImage = "https://i.ytimg.com/vi/bhuKGm7CGHk/maxresdefault.jpg"
