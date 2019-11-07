@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -9,80 +10,99 @@
             type="com.vanks.quotzz.model.ArticleJson" />
 
         <variable
+            name="labels"
+            type="com.vanks.quotzz.model.LabelCollection" />
+
+        <variable
             name="searchTerm"
             type="String" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff">
 
         <TextView
+            android:id="@+id/searchLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="731dp"
             android:gravity="center_horizontal"
             android:keepScreenOn="true"
             android:padding="20sp"
             android:paddingTop="30sp"
             android:text="@{searchTerm}"
             android:textColor="@color/colorAccent"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textSize="35sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:data="@{articles}" />
+            app:articleData="@{articles}"
+            app:layout_constraintTop_toBottomOf="@id/searchLabel"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/fullscreen_content_controls"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20sp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:paddingTop="10sp"
+            android:paddingLeft="25sp"
+            android:paddingRight="25sp"
+            android:paddingBottom="25sp"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            >
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/labelsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5sp"
-                android:background="#ffffff"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
+                android:paddingBottom="10dp"
+                app:labelData="@{labels}" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:focusableInTouchMode="true"
+                android:focusedByDefault="true"
+
+                android:hint="@string/hint_text"
+                app:boxStrokeColor="@color/colorAccent"
+                app:boxStrokeWidth="30sp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_text"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:boxStrokeWidth="30sp">
+                    android:text=""
+                    android:textColor="@color/colorAccent" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/search_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Latest News"
-                        android:textColor="@color/colorAccent" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_label" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/search_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/search_label" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2sp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="Powered by NewsAPI.org"/>
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2sp"
+                android:text="Powered by NewsAPI.org"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
 
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

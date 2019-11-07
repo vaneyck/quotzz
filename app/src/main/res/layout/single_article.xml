@@ -4,13 +4,17 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="article"
             type="com.vanks.quotzz.model.News" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/article_container"
             android:layout_width="match_parent"
@@ -72,9 +76,10 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/read_button"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="@string/read_label" />
+                android:layout_gravity="center_horizontal"
+                android:text="@string/read_label"
+                android:visibility="@{ article.url != null ? View.VISIBLE : View.GONE}" />
         </LinearLayout>
     </ScrollView>
 </layout>
