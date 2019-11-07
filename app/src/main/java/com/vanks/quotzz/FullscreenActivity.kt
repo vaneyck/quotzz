@@ -1,5 +1,6 @@
 package com.vanks.quotzz
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import com.vanks.quotzz.model.LabelCollection
 import com.vanks.quotzz.viewmodel.MainActivityViewModel
 import com.vanks.quotzz.viewmodel.SearchTerm
 import kotlinx.android.synthetic.main.activity_fullscreen.*
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -81,6 +84,15 @@ class FullscreenActivity : AppCompatActivity() {
                         0
                     )
                 )
+                // Hide keyvboard after pressing button
+                // https://stackoverflow.com/questions/13593069/androidhide-keyboard-after-button-click
+                try {
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm!!.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                } catch (e: Exception) {
+                    // TODO: handle exception
+                }
+
             }
         })
     }

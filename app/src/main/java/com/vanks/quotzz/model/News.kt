@@ -1,9 +1,13 @@
 package com.vanks.quotzz.model
 
-import androidx.annotation.MainThread
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class News {
@@ -21,6 +25,28 @@ class News {
             return this.author + " @ " + this.source["name"].toString()
         } else {
             return this.source["name"].toString()
+        }
+    }
+
+    fun getPublishedDate(): Date? {
+        val tz = TimeZone.getTimeZone("UTC")
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        df.setTimeZone(tz)
+
+        try {
+            return df.parse(publishedAt)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    fun getHumanReadableDate() : String {
+        val t = getPublishedDate()
+        if (t !== null) {
+            return t.toString()
+        } else {
+            return ""
         }
     }
 }

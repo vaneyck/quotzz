@@ -2,12 +2,12 @@ package com.vanks.quotzz.bindingadapter;
 
 import android.util.Log;
 import android.widget.ImageView;
-import android.R;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.vanks.quotzz.R;
 import com.vanks.quotzz.adapter.ArticleAdapter;
 import com.vanks.quotzz.adapter.ChipAdapter;
 import com.vanks.quotzz.model.ArticleJson;
@@ -23,7 +23,7 @@ public class CustomBindingAdapter {
             return;
         }
         Picasso.get().load(imageUrl)
-                //.placeholder(R.drawable.picture_frame)
+                .placeholder(R.drawable.placeholder)
                 .into(imageView);
     }
 
