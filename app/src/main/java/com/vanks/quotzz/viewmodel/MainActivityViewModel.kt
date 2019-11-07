@@ -1,6 +1,5 @@
 package com.vanks.quotzz.viewmodel
 
-import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +13,7 @@ class MainActivityViewModel : ViewModel() {
         MutableLiveData<SearchTerm>()
 }
 
-class SearchTerm(val term: String?, val label: Label?) : LiveData<SearchTerm>() {
+class SearchTerm(val term: String?, val label: Label?) {
     fun getText(): String {
         if (term != null) {
             return term
