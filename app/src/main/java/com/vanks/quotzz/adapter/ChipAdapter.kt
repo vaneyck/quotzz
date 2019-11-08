@@ -39,8 +39,12 @@ class ChipAdapter(
 
     override fun onBindViewHolder(holder: ChipViewHolder, position: Int) {
         holder.binding.label = labels[position]
+
         holder.binding.labelButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+                // Mark as selected the active label
+                articleRepository.pullLabelCollection().value?.labels?.forEach { it.selected = false }
+                articleRepository.pullLabelCollection().value?.labels?.get(position)?.selected = true
                 viewModel.searchTerm = articleRepository.generateSearchTerm(labels[position])
                 viewModel.articles = articleRepository.pullArticles(
                     ArticleQuery(

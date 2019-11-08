@@ -42,9 +42,10 @@ class FullscreenActivity : AppCompatActivity() {
         val articleRepository = ArticleRepository(this)
 
         val viewModel: MainActivityViewModel by viewModels()
-        viewModel.articles =
-            articleRepository.pullArticles(ArticleQuery(ArticleQueryType.CATEGORY, "", 0))
-        viewModel.searchTerm = articleRepository.generateSearchTerm(LabelCollection.labels[0])
+        viewModel.articles = articleRepository.pullArticles(ArticleQuery(ArticleQueryType.CATEGORY, "", 0))
+        viewModel.searchTerm = articleRepository.generateSearchTerm(articleRepository.pullLabelCollection().value?.labels?.get(0)?.name?:"")
+        viewModel.labelCollection = articleRepository.pullLabelCollection()
+        articleRepository.pullLabelCollection().value?.labels?.get(0)?.selected = true
 
         // Observing changes in ViewModel
         viewModel.articles.observe(this, Observer<ArticleJson> { json ->
@@ -59,13 +60,16 @@ class FullscreenActivity : AppCompatActivity() {
             binding.searchTerm = term
         })
 
+        viewModel.labelCollection.observe(this, Observer<LabelCollection> { labels ->
+            Log.d(TAG, "Listening and setting label collection term $labels")
+            binding.labels= labels
+        })
+
         // Setting recycler view after data is loaded
         val adapter = ArticleAdapter(this)
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
-
-        binding.labels = LabelCollection()
 
         // Chip config
         val labelAdapter = ChipAdapter(this, articleRepository, viewModel)
@@ -88,7 +92,7 @@ class FullscreenActivity : AppCompatActivity() {
                 // https://stackoverflow.com/questions/13593069/androidhide-keyboard-after-button-click
                 try {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm!!.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                    imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
                 } catch (e: Exception) {
                     // TODO: handle exception
                 }

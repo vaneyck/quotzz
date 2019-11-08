@@ -13,6 +13,7 @@ class ArticleRepository(val context: Context) {
 
     var data = MutableLiveData<ArticleJson>()
     var searchConfig = MutableLiveData<SearchTerm>()
+    var labelCollection = MutableLiveData<LabelCollection>()
 
     fun generateSearchTerm(term : String): LiveData<SearchTerm> {
         searchConfig.value = SearchTerm(term, null)
@@ -22,6 +23,11 @@ class ArticleRepository(val context: Context) {
     fun generateSearchTerm(label : Label) : LiveData<SearchTerm> {
         searchConfig.value = SearchTerm(null, label)
         return searchConfig
+    }
+
+    fun pullLabelCollection() : LiveData<LabelCollection> {
+        labelCollection.value = LabelCollection()
+        return labelCollection
     }
 
     fun pullArticles(articleQuery: ArticleQuery): LiveData<ArticleJson> {
@@ -47,6 +53,10 @@ class ArticleRepository(val context: Context) {
             } else if (articleQuery.categoryIndex == 1) {
                 Log.d(TAG, "Country code is ${getDeviceCountryCode(context)}")
                 webservice.getLocalNews(getDeviceCountryCode(context)).enqueue(saveData(data))
+            } else if (articleQuery.categoryIndex == 2) {
+                webservice.getCategoryNews("business").enqueue(saveData(data))
+            } else if (articleQuery.categoryIndex == 3) {
+                webservice.getCategoryNews("technology").enqueue(saveData(data))
             }
         }
         return data

@@ -65,6 +65,9 @@ interface Webservice {
 
     @GET("https://newsapi.org/v2/top-headlines?apiKey=37bd379b7c7e4280ad84f7e8d176e870&language=en")
     fun getLocalNews(@Query("country") country: String): Call<ArticleJson>
+
+    @GET("https://newsapi.org/v2/top-headlines?apiKey=37bd379b7c7e4280ad84f7e8d176e870&language=en")
+    fun getCategoryNews(@Query("category") category: String): Call<ArticleJson>
 }
 
 
