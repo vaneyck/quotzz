@@ -1,6 +1,7 @@
 # quotzz
 Search and view curated articles from https://newsapi.org/
 
+## Screenshots : [View Quotzz on Play Store](https://play.google.com/store/apps/details?id=com.vanks.quotzz)
 <table>
     <tbody>
         <tr>
@@ -12,3 +13,10 @@ Search and view curated articles from https://newsapi.org/
         </tr>
     </tbody>
 </table>
+
+## Lessons Learnt
+
+Learnt how to use
+- ViewModel / Live Data / Data Binding - Makes manipulating the UI pleasant
+    - Inflating a RecyclerView and bind data to each item
+- Retrofit - Makes API calls a breeze
